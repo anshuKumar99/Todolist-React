@@ -1,8 +1,11 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import styles from "./AddTodo.module.css";
 import { IoMdAdd } from "react-icons/io";
+import { TodoItemsContext } from "../store/todoItems-store";
 
-function AddTodo({ handleAddButtonClick }) {
+function AddTodo() {
+  const { addNewItem } = useContext(TodoItemsContext);
+
   const todoTaskElement = useRef();
   const dueDateElement = useRef();
 
@@ -12,7 +15,7 @@ function AddTodo({ handleAddButtonClick }) {
     const dueDate = dueDateElement.current.value;
     todoTaskElement.current.value = "";
     dueDateElement.current.value = "";
-    handleAddButtonClick(todoTask, dueDate);
+    addNewItem(todoTask, dueDate);
   };
   return (
     <div className={styles["add-items"]}>

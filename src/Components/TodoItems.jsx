@@ -1,6 +1,9 @@
+import { useContext } from "react";
+import { TodoItemsContext } from "../store/todoItems-store";
 import AddItems from "./AddItems";
 
-const TodoItems = ({ todoItems, handleDeleteButtonClick }) => {
+const TodoItems = () => {
+  const todoItems = useContext(TodoItemsContext).todoItems;
   return (
     <>
       <div>
@@ -9,7 +12,6 @@ const TodoItems = ({ todoItems, handleDeleteButtonClick }) => {
             key={item.name}
             todoName={item.name}
             todoDate={item.dueDate}
-            handleDeleteButtonClick={handleDeleteButtonClick}
           />
         ))}
       </div>
