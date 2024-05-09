@@ -1,5 +1,7 @@
+// Importing createContext, useEffect, useReducer, useState from react
 import { createContext, useEffect, useReducer, useState } from "react";
 
+// create context for TodoItemsContext
 export const TodoItemsContext = createContext([
   {
     todoItems: [],
@@ -12,6 +14,7 @@ export const TodoItemsContext = createContext([
   },
 ]);
 
+// todoItemsReducer method to update todoItems list
 const todoItemsReducer = (currTodoItems, action) => {
   let newTodoItems = currTodoItems;
   if (action.type === "DELETE_ITEM") {
@@ -40,12 +43,16 @@ const todoItemsReducer = (currTodoItems, action) => {
 };
 
 const TodoItemsContextProvider = ({ children }) => {
+  // Using useReducer to get and set todoItems
   const [todoItems, dispatchTodoItems] = useReducer(todoItemsReducer, []);
 
+  // Using useState to set and get fetching
   const [fetching, setFetching] = useState(false);
 
+  // Using useState to set and get editTaskID
   const [editTaskID, setEditTaskID] = useState(null);
 
+  // addInitialtodoItems method for adding intial items from api
   const addInitialtodoItems = (items) => {
     dispatchTodoItems({
       type: "ADD_INITIAL_ITEMS",
@@ -55,6 +62,7 @@ const TodoItemsContextProvider = ({ children }) => {
     });
   };
 
+  // addNewItem method for adding new item
   const addNewItem = (todo) => {
     dispatchTodoItems({
       type: "ADD_ITEM",
@@ -62,6 +70,7 @@ const TodoItemsContextProvider = ({ children }) => {
     });
   };
 
+  // deleteItem method for deleting new item
   const deleteItem = (todoId) => {
     dispatchTodoItems({
       type: "DELETE_ITEM",
@@ -71,6 +80,7 @@ const TodoItemsContextProvider = ({ children }) => {
     });
   };
 
+  // updateItem method for updating new item
   const updateItem = (newTodo) => {
     dispatchTodoItems({
       type: "UPDATE_ITEM",
@@ -78,6 +88,7 @@ const TodoItemsContextProvider = ({ children }) => {
     });
   };
 
+  // isTodoCompleted method to set todo item is completed
   const isTodoCompleted = (todoId) => {
     dispatchTodoItems({
       type: "COMPLETED",
@@ -87,6 +98,7 @@ const TodoItemsContextProvider = ({ children }) => {
     });
   };
 
+  // Using useEffect for fetching todo items from api
   useEffect(() => {
     setFetching(true);
     const controller = new AbortController();
@@ -94,7 +106,6 @@ const TodoItemsContextProvider = ({ children }) => {
     fetch("https://jsonplaceholder.typicode.com/todos", { signal })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
         addInitialtodoItems(data);
         setFetching(false);
       });
@@ -122,4 +133,5 @@ const TodoItemsContextProvider = ({ children }) => {
   );
 };
 
+//exporting TodoItemsContextProvider component
 export default TodoItemsContextProvider;
