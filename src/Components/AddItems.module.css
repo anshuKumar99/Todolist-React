@@ -3,3 +3,6 @@
   margin: 1rem;
   margin-top: 2rem;
 }
+.item-completed{
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(230,247,240,1) 0%);;
+}

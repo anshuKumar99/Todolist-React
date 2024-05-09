@@ -12,3 +12,12 @@ input {
 .ak-row {
   margin: 10px 5px;
 }
+
+.header{
+  background-color: aqua;
+  background-color: rgba(239,234,226);
+  position: fixed;
+  top:-20px;
+  width: 100%;
+  height: 225px;
+}
